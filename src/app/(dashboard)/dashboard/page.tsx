@@ -1,5 +1,5 @@
 import { Overview } from '@/components/overview';
-import { RecentSales } from '@/components/recent-sales';
+import { RecentActivities } from '@/components/recent-activity';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -10,8 +10,69 @@ import {
 } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import {
+  BarChart2,
+  Monitor,
+  Settings,
+  Cloud,
+  Activity,
+  Leaf,
+  DollarSign,
+  Briefcase
+} from 'lucide-react';
 
-export default function page() {
+const cardData = [
+  {
+    title: 'Total Water Bodies',
+    value: '3,450',
+    change: '+8.5% from last month',
+    icon: <BarChart2 className="h-4 w-4 text-muted-foreground" />
+  },
+  {
+    title: 'Monitored Water Bodies',
+    value: '1,250',
+    change: '+15.3% from last month',
+    icon: <Monitor className="h-4 w-4 text-muted-foreground" />
+  },
+  {
+    title: 'Under Maintenance',
+    value: '12',
+    change: '+10% from last month',
+    icon: <Settings className="h-4 w-4 text-muted-foreground" />
+  },
+  {
+    title: 'High Pollution Areas',
+    value: '432',
+    change: '+5.2% from last month',
+    icon: <Cloud className="h-4 w-4 text-muted-foreground" />
+  },
+  {
+    title: 'Potential Diseases',
+    value: '175',
+    change: '+3.7% from last month',
+    icon: <Activity className="h-4 w-4 text-muted-foreground" />
+  },
+  {
+    title: 'Wildlife Sightings',
+    value: '68',
+    change: '+7.4% from last month',
+    icon: <Leaf className="h-4 w-4 text-muted-foreground" />
+  },
+  {
+    title: 'Near Agricultural Land',
+    value: '89',
+    change: '+2.1% from last month',
+    icon: <Briefcase className="h-4 w-4 text-muted-foreground" />
+  },
+  {
+    title: 'Total Funding',
+    value: '₹340,000',
+    change: '+12% from last month',
+    icon: <DollarSign className="h-4 w-4 text-muted-foreground" />
+  }
+];
+
+export default function Page() {
   return (
     <ScrollArea className="h-full">
       <div className="flex-1 space-y-4 p-4 pt-6 md:p-8">
@@ -23,137 +84,63 @@ export default function page() {
             <Button>Download</Button>
           </div>
         </div>
+        <p className='leading-3 text-sm'>Data represent the values related to water bodies</p>
         <Tabs defaultValue="overview" className="space-y-4">
-          <TabsList>
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="analytics" disabled>
-              Analytics
-            </TabsTrigger>
-          </TabsList>
           <TabsContent value="overview" className="space-y-4">
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                  Total Water Bodies
-                  </CardTitle>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    className="h-4 w-4 text-muted-foreground"
-                  >
-                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                  </svg>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">5,231</div>
-                  <p className="text-xs text-muted-foreground">
-                    +20.1% from last month
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                  Good Quality Bodies
-                  </CardTitle>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    className="h-4 w-4 text-muted-foreground"
-                  >
-                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                    <circle cx="9" cy="7" r="4" />
-                    <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
-                  </svg>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">+70</div>
-                  <p className="text-xs text-muted-foreground">
-                    +180.1% from last month
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    Bad Quality Bodies
+              {cardData.slice(0, 4).map((card, index) => (
+                <Card key={index}>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">
+                      {card.title}
                     </CardTitle>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    className="h-4 w-4 text-muted-foreground"
-                  >
-                    <rect width="20" height="14" x="2" y="5" rx="2" />
-                    <path d="M2 10h20" />
-                  </svg>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">+6</div>
-                  <p className="text-xs text-muted-foreground">
-                    +19% from last month
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    Average Quality Bodies
-                  </CardTitle>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    className="h-4 w-4 text-muted-foreground"
-                  >
-                    <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-                  </svg>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">+5161</div>
-                  <p className="text-xs text-muted-foreground">
-                    +201 since last month
-                  </p>
-                </CardContent>
-              </Card>
+                    {card.icon}
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold">{card.value}</div>
+                    <p className="text-xs text-muted-foreground">
+                      {card.change}
+                    </p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+              {cardData.slice(4).map((card, index) => (
+                <Card key={index}>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">
+                      {card.title}
+                    </CardTitle>
+                    {card.icon}
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold">{card.value}</div>
+                    <p className="text-xs text-muted-foreground">
+                      {card.change}
+                    </p>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-7">
               <Card className="col-span-4">
                 <CardHeader>
                   <CardTitle>Overview</CardTitle>
                 </CardHeader>
-                <CardContent className="pl-2">
+                <CardContent className="pl-3">
                   <Overview />
                 </CardContent>
               </Card>
               <Card className="col-span-4 md:col-span-3">
                 <CardHeader>
-                  <CardTitle>Recent Sales</CardTitle>
+                  <CardTitle>Recent Activity</CardTitle>
                   <CardDescription>
-                    You made 265 sales this month.
+                    Your recent activity here.
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <RecentSales />
+                  <RecentActivities />
                 </CardContent>
               </Card>
             </div>
