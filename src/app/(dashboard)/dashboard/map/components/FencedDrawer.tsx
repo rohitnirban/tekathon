@@ -56,7 +56,7 @@ const FencedDrawer: React.FC<FencedDrawerProps> = ({ open, fence, onClose, onCoo
                         <TableHead>Value</TableHead>
                     </TableRow>
                 </TableHeader>
-                <TableBody>
+                <TableBody className='capitalize'>
                     {Object.entries(fence).map(([key, value]) => {
                         if (key === 'location') {
                             return (
