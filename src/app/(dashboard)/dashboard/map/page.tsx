@@ -24,7 +24,7 @@ const Page: React.FC = () => {
 
     useEffect(() => {
         const fetchFences = async () => {
-            const response = await fetch('/fences.json');
+            const response = await fetch('/sample.geojson');
             const data = await response.json();
             setFences(data);
         };

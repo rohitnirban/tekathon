@@ -30,3 +30,10 @@ export interface FooterItem {
 export type MainNavItem = NavItemWithOptionalChildren;
 
 export type SidebarNavItem = NavItemWithChildren;
+
+// src/types.ts
+export interface District {
+  name: string;
+  lastUpdatedAt: string;
+  nextUpdateAt: string;
+}

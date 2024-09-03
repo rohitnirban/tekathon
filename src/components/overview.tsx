@@ -14,16 +14,8 @@ const data = [
 export function Overview() {
   return (
     <ResponsiveContainer width="100%" height={350}>
-      <BarChart data={data} layout="vertical">
+      <BarChart data={data}>
         <XAxis
-          type="number"
-          stroke="#888888"
-          fontSize={12}
-          tickLine={false}
-          axisLine={false}
-          tickFormatter={(value) => `${value}`}
-        />
-        <YAxis
           type="category"
           dataKey="name"
           stroke="#888888"
@@ -31,7 +23,15 @@ export function Overview() {
           tickLine={false}
           axisLine={false}
         />
-        <Bar dataKey="total" fill="#adfa1d" radius={[0, 4, 4, 0]} />
+        <YAxis
+          type="number"
+          stroke="#888888"
+          fontSize={12}
+          tickLine={false}
+          axisLine={false}
+          tickFormatter={(value) => `${value}`}
+        />
+        <Bar dataKey="total" fill="#002163" radius={[4, 4, 0, 0]} barSize={100} />
       </BarChart>
     </ResponsiveContainer>
   );
