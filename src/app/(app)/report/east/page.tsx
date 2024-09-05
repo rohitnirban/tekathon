@@ -4,6 +4,71 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogHeader, DialogTitle, DialogTrigger, DialogContent } from '@/components/ui/dialog';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import React from 'react';
+import Link from 'next/link';
+import { Overview } from '@/components/overview';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+    BarChart2,
+    Monitor,
+    Settings,
+    Cloud,
+    Activity,
+    Leaf,
+    DollarSign,
+    Briefcase
+} from 'lucide-react';
+import { MultiBar } from '../../components/MutiBar';
+
+const cardData = [
+    {
+        title: 'Total Water Bodies',
+        value: '3,450',
+        change: '+8.5% from last month',
+        icon: <BarChart2 className="h-4 w-4 text-muted-foreground" />
+    },
+    {
+        title: 'Monitored Water Bodies',
+        value: '1,250',
+        change: '+15.3% from last month',
+        icon: <Monitor className="h-4 w-4 text-muted-foreground" />
+    },
+    {
+        title: 'Under Maintenance',
+        value: '12',
+        change: '+10% from last month',
+        icon: <Settings className="h-4 w-4 text-muted-foreground" />
+    },
+    {
+        title: 'High Pollution Areas',
+        value: '432',
+        change: '+5.2% from last month',
+        icon: <Cloud className="h-4 w-4 text-muted-foreground" />
+    },
+    {
+        title: 'Potential Diseases',
+        value: '175',
+        change: '+3.7% from last month',
+        icon: <Activity className="h-4 w-4 text-muted-foreground" />
+    },
+    {
+        title: 'Wildlife Sightings',
+        value: '68',
+        change: '+7.4% from last month',
+        icon: <Leaf className="h-4 w-4 text-muted-foreground" />
+    },
+    {
+        title: 'Near Agricultural Land',
+        value: '89',
+        change: '+2.1% from last month',
+        icon: <Briefcase className="h-4 w-4 text-muted-foreground" />
+    },
+    {
+        title: 'Total Funding',
+        value: '₹340,000',
+        change: '+12% from last month',
+        icon: <DollarSign className="h-4 w-4 text-muted-foreground" />
+    }
+];
 
 type Detail = {
     serialNo: number;
@@ -17,6 +82,7 @@ type Detail = {
     khasraNo: string;
     regulatedWetland: string;
     landOwnership: string;
+    imageLink:string;
 };
 
 type District = {
@@ -28,7 +94,7 @@ type District = {
 
 const districts: District[] = [
     {
-        name: 'EDMC',
+        name: 'ASI',
         lastUpdatedAt: '22 Mar 2024',
         nextUpdateAt: '10 Sept 2024',
         details: [
@@ -43,40 +109,8 @@ const districts: District[] = [
                 areaInHa: 0.00113,
                 khasraNo: '(d)464(0-09)',
                 regulatedWetland: 'Yes',
-                landOwnership: 'EDMC',
-            },
-            {
-                serialNo: 2,
-                wetlandName: 'Mandawali Fazilpur',
-                coordinates: '28° 37\' 47.439" N 77° 17\' 45.070" E',
-                district: 'East',
-                village: 'Mandawali Fazilpur',
-                wetlandType: 'Inland',
-                wetlandSubType: 'Natural',
-                areaInHa: 4.0134,
-                khasraNo: '(a)625, 626 (30-0)',
-                regulatedWetland: 'Yes',
-                landOwnership: 'EDMC',
-            },
-        ],
-    },
-    {
-        name: 'DJB',
-        lastUpdatedAt: '22 Mar 2024',
-        nextUpdateAt: '10 Sept 2024',
-        details: [
-            {
-                serialNo: 1,
-                wetlandName: 'Welcome Jheel, Shahdara',
-                coordinates: '28 40.515\'N, 77 16.695\'E',
-                district: 'East',
-                village: 'Shahdara',
-                wetlandType: 'Inland',
-                wetlandSubType: 'Natural',
-                areaInHa: 12.94,
-                khasraNo: '32 acre',
-                regulatedWetland: 'Yes',
-                landOwnership: 'EDMC',
+                landOwnership: 'ASI',
+                imageLink:'https://res.cloudinary.com/duqeanwph/image/upload/v1725467192/ph9dhzxlibrsxibsfks5.png'
             },
         ],
     },
@@ -97,6 +131,49 @@ const districts: District[] = [
                 khasraNo: '(a)123, 456 (45-0)',
                 regulatedWetland: 'Yes',
                 landOwnership: 'DDA',
+                imageLink:'https://res.cloudinary.com/duqeanwph/image/upload/v1725467192/ph9dhzxlibrsxibsfks5.png'
+            },
+        ],
+    },
+    {
+        name: 'Forest',
+        lastUpdatedAt: '22 Mar 2024',
+        nextUpdateAt: '10 Sept 2024',
+        details: [
+            {
+                serialNo: 1,
+                wetlandName: 'Forest Area A',
+                coordinates: '28° 36\' 35.00" N 77° 17\' 50.00" E',
+                district: 'North',
+                village: 'Forest Village',
+                wetlandType: 'Forest',
+                wetlandSubType: 'Natural',
+                areaInHa: 100.0,
+                khasraNo: '(b)789, 101 (55-0)',
+                regulatedWetland: 'Yes',
+                landOwnership: 'Forest Department',
+                imageLink:'https://res.cloudinary.com/duqeanwph/image/upload/v1725467192/ph9dhzxlibrsxibsfks5.png'
+            },
+        ],
+    },
+    {
+        name: 'SDMC',
+        lastUpdatedAt: '22 Mar 2024',
+        nextUpdateAt: '10 Sept 2024',
+        details: [
+            {
+                serialNo: 1,
+                wetlandName: 'SDMC Wetland A',
+                coordinates: '28° 39\' 40.00" N 77° 19\' 30.00" E',
+                district: 'North',
+                village: 'SDMC Area',
+                wetlandType: 'Urban',
+                wetlandSubType: 'Artificial',
+                areaInHa: 20.0,
+                khasraNo: '(c)456, 789 (20-0)',
+                regulatedWetland: 'Yes',
+                landOwnership: 'SDMC',
+                imageLink:'https://res.cloudinary.com/duqeanwph/image/upload/v1725467192/ph9dhzxlibrsxibsfks5.png'
             },
         ],
     },
@@ -130,14 +207,19 @@ const DistrictDialog: React.FC<DistrictDialogProps> = ({ district }) => (
                             <TableHead>Khasra No./Areas</TableHead>
                             <TableHead>Whether falls within category of regulated wetlands</TableHead>
                             <TableHead>Land ownerships</TableHead>
+                            <TableHead>Recent Image</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {district.details.map((detail, index) => (
-                            <TableRow key={index}>
+                        {district.details.map((detail) => (
+                            <TableRow key={detail.serialNo}>
                                 <TableCell>{detail.serialNo}</TableCell>
                                 <TableCell>{detail.wetlandName}</TableCell>
-                                <TableCell>{detail.coordinates}</TableCell>
+                                <TableCell>
+                                    <Link href={`https://www.google.com/maps/place/${detail.coordinates}`} target='_blank'>
+                                        {detail.coordinates}
+                                    </Link>
+                                </TableCell>
                                 <TableCell>{detail.district}</TableCell>
                                 <TableCell>{detail.village}</TableCell>
                                 <TableCell>{detail.wetlandType}</TableCell>
@@ -146,6 +228,10 @@ const DistrictDialog: React.FC<DistrictDialogProps> = ({ district }) => (
                                 <TableCell>{detail.khasraNo}</TableCell>
                                 <TableCell>{detail.regulatedWetland}</TableCell>
                                 <TableCell>{detail.landOwnership}</TableCell>
+                                <TableCell>
+                                    <Link href={detail.imageLink} target='_blank' className='text-blue-700 underline'>
+                                        Link
+                                    </Link></TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
@@ -160,7 +246,39 @@ const Page = () => (
         <main className="bg-white">
             <div className='breadcrumb p-10 text-white px-20'>
                 <h1 className="text-3xl font-bold mb-4">East</h1>
-                <p className='text-sm'>Home/ East</p>
+                <p className='text-sm'>Home/ Report/ East</p>
+            </div>
+
+            <div className="space-y-4 pt-10 px-4 md:px-20">
+                <h1 className="text-3xl font-bold mb-4">Dashboard</h1>
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                    {cardData.slice(0, 4).map((card, index) => (
+                        <Card key={index}>
+                            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                                <CardTitle className="text-sm font-medium">
+                                    {card.title}
+                                </CardTitle>
+                                {card.icon}
+                            </CardHeader>
+                            <CardContent>
+                                <div className="text-2xl font-bold">{card.value}</div>
+                                <p className="text-xs text-muted-foreground">
+                                    {card.change}
+                                </p>
+                            </CardContent>
+                        </Card>
+                    ))}
+                </div>
+                <div>
+                    <Card className="col-span-4">
+                        <CardHeader>
+                            <CardTitle>Overview</CardTitle>
+                        </CardHeader>
+                        <CardContent className="pl-3">
+                            <MultiBar />
+                        </CardContent>
+                    </Card>
+                </div>
             </div>
 
             <div className="space-y-4 p-20">

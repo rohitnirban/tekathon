@@ -70,12 +70,7 @@ const Page = () => {
     return (
         <div className="w-full">
             <main className="bg-white">
-                <div className='breadcrumb p-10 text-white px-20 '>
-                    <h1 className="text-3xl font-bold mb-4">District Wise/ Agency Wise List</h1>
-                    <p className='text-sm'>Home/ District Wise/ Agency Wise List</p>
-                </div>
-
-                <div className="space-y-4 p-20">
+                <div className="space-y-4 pt-10 px-4 md:px-20">
                     <h1 className="text-3xl font-bold mb-4">Monitored Data</h1>
                     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                         {cardData.slice(0, 4).map((card, index) => (
@@ -123,29 +118,7 @@ const Page = () => {
                             </CardContent>
                         </Card>
                     </div>
-                    {/* <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-7">
-                        <Card className="col-span-4">
-                            <CardHeader>
-                                <CardTitle>Overview</CardTitle>
-                            </CardHeader>
-                            <CardContent className="pl-3">
-                                <Overview />
-                            </CardContent>
-                        </Card>
-                        <Card className="col-span-4 md:col-span-3">
-                            <CardHeader>
-                                <CardTitle>Recent Activity</CardTitle>
-                                <CardDescription>
-                                    Your recent activity here.
-                                </CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <RecentActivities />
-                            </CardContent>
-                        </Card>
-                    </div> */}
                 </div>
-
             </main>
         </div>
     );
