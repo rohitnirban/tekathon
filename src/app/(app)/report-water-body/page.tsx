@@ -223,8 +223,8 @@ const ReportWaterBody: React.FC = () => {
             {cameras.length > 0 ? (
               cameras.map((camera) => (
                 <SelectItem
-                  key={camera.deviceId}
-                  value={camera.deviceId}
+                  key={camera.label || ''}
+                  value={camera.label || ''}
                 >
                   {camera.label || 'Unnamed Camera'}
                 </SelectItem>
