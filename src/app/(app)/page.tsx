@@ -17,13 +17,13 @@ import React, { useState } from 'react';
 const cardData = [
     {
         title: 'Total Water Bodies',
-        value: '3,450',
+        value: '1,260',
         change: '+8.5% from last month',
         icon: <BarChart2 className="h-4 w-4 text-muted-foreground" />
     },
     {
         title: 'Monitored Water Bodies',
-        value: '1,250',
+        value: '750',
         change: '+15.3% from last month',
         icon: <Monitor className="h-4 w-4 text-muted-foreground" />
     },
@@ -59,7 +59,7 @@ const cardData = [
     },
     {
         title: 'Total Funding',
-        value: '₹340,000',
+        value: '₹30,000',
         change: '+12% from last month',
         icon: <DollarSign className="h-4 w-4 text-muted-foreground" />
     }
@@ -68,7 +68,7 @@ const cardData = [
 const Page = () => {
 
     return (
-        <div className="w-full">
+        <div className="w-full mb-20">
             <main className="bg-white">
                 <div className="space-y-4 pt-10 px-4 md:px-20">
                     <h1 className="text-3xl font-bold mb-4">Monitored Data</h1>

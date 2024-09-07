@@ -11,10 +11,10 @@ import {
 export const description = "A multiple bar chart"
 
 const chartData = [
-    { dep: "ASI", quality: 80 },
-    { dep: "DDA", quality: 200 },
-    { dep: "Forest", quality: 120 },
-    { dep: "SDMC", quality: 320 },
+    { dep: "ASI", quality: Math.floor(20 + Math.random()*200) },
+    { dep: "DDA", quality: Math.floor(20 + Math.random()*200) },
+    { dep: "Forest", quality: Math.floor(20 + Math.random()*200) },
+    { dep: "SDMC", quality: Math.floor(20 + Math.random()*200) },
 ]
 
 const chartConfig = {

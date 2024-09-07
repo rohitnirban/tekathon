@@ -10,46 +10,25 @@ import React, { useState } from 'react'
 const menuItems = [
     { title: 'Home', href: '/' },
     {
-        title: 'Report',
-        href: '/report',
+        title: 'Wetland Authority Delhi',
+        href: '/wetland-authority-delhi',
         submenu: [
-            { title: 'East', href: '/report/east' },
-            { title: 'West', href: '/report/west' },
-            { title: 'North', href: '/report/north' },
-            { title: 'South', href: '/report/south' },
+            { title: 'Central', href: '/wetland-authority-delhi/central' },
+            { title: 'New Delhi', href: '/wetland-authority-delhi/new-delhi' },
+            { title: 'East', href: '/wetland-authority-delhi/east' },
+            { title: 'West', href: '/wetland-authority-delhi/west' },
+            { title: 'North', href: '/wetland-authority-delhi/north' },
+            { title: 'North East', href: '/wetland-authority-delhi/north-east' },
+            { title: 'North West', href: '/wetland-authority-delhi/north-west' },
+            { title: 'South', href: '/wetland-authority-delhi/south' },
+            { title: 'South East', href: '/wetland-authority-delhi/south-east' },
+            { title: 'South West', href: '/wetland-authority-delhi/south-west' },
         ],
     },
-    {
-        title: 'Informations',
-        href: '/informations',
-        submenu: [
-            { title: 'Trees', href: '/informations/trees' },
-            { title: 'Clean Delhi', href: '/informations/clean-delhi-drive' },
-            {
-                title: 'World', href: '/informations/world-top-10s', submenu: [
-                    { title: 'Overview', href: '/about/overview' },
-                    { title: 'Mission', href: '/about/mission' },
-                    { title: 'Team', href: '/about/team' },
-                ],
-            },
-            { title: 'State Bird', href: '/informations/state-bird' },
-            { title: 'Point 16', href: '/informations/point-16' },
-            {
-                title: 'Newspaper', href: '/informations/newspaper-clippings', submenu: [
-                    { title: 'Overview', href: '/about/overview' },
-                    { title: 'Mission', href: '/about/mission' },
-                    { title: 'Team', href: '/about/team' },
-                ],
-            },
-        ],
-    },
-    { title: 'Mapping', href: '/miscellaneous' },
+    { title: 'Mapping', href: '/mapping' },
     { title: 'Report Water Body', href: '/report-water-body' },
-    { title: 'Notice Board', href: '/notice-board' },
-    { title: 'Downloads', href: '/downloads' },
-    { title: 'Media', href: '/media' },
-    { title: 'RTI', href: '/rti' },
-    { title: 'Contact Us', href: '/contact' },
+    { title: 'Sensor Data', href: '/sensor-data' },
+    { title: 'Alerts', href: '/alerts/1' },
 ];
 
 const Navbar = () => {
@@ -133,7 +112,7 @@ const Navbar = () => {
                                         onClick={() => toggleMenu(item.title)}
                                         className="flex items-center focus:outline-none"
                                     >
-                                        {item.title}
+                                        <Link href={item.href}>{item.title}</Link>
                                         <ChevronDown className={`ml-1 h-4 w-4 transition-transform ${isMenuOpen(item.title) ? 'rotate-180' : ''}`} />
                                     </button>
                                     {isMenuOpen(item.title) && (

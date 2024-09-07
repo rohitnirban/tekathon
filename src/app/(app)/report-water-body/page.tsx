@@ -14,6 +14,8 @@ import {
 import axios from 'axios'
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
+import { Loader2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 interface Coordinates {
   latitude: number;
@@ -26,18 +28,23 @@ interface CameraDevice {
 }
 
 const ReportWaterBody: React.FC = () => {
+
+  const router = useRouter();
+
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [mobile, setMobile] = useState<string>('');
   const [feedback, setFeedback] = useState<string>('');
   const [image, setImage] = useState<string | null>(null);
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
+  const [uploadingImageLoading, setUploadingImageLoading] = useState<boolean>(false);
   const [coordinates, setCoordinates] = useState<Coordinates | null>(null);
   const [locationDenied, setLocationDenied] = useState<boolean>(false);
   const [cameraDenied, setCameraDenied] = useState<boolean>(false);
   const [cameras, setCameras] = useState<CameraDevice[]>([]);
   const [selectedCamera, setSelectedCamera] = useState<string | null>(null);
   const [isCameraOpen, setIsCameraOpen] = useState<boolean>(false);
+  const [reportSending, setReportSending] = useState<boolean>(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -124,6 +131,7 @@ const ReportWaterBody: React.FC = () => {
   };
 
   const handleUpload = async () => {
+    setUploadingImageLoading(true)
     if (!image) {
       console.error('No image to upload');
       return;
@@ -150,10 +158,13 @@ const ReportWaterBody: React.FC = () => {
       console.log('Upload successful:', uploadResponse.data);
     } catch (error) {
       console.error('Error uploading image:', error);
+    } finally {
+      setUploadingImageLoading(false)
     }
   };
 
   const handleSendReport = async () => {
+    setReportSending(true);
     if (!uploadedImage || !name || !email || !mobile || !feedback || !coordinates) {
       console.error('All fields are required');
       return;
@@ -178,8 +189,11 @@ const ReportWaterBody: React.FC = () => {
       // Save to Firestore
       const docRef = await addDoc(collection(db, "waterReports"), reportData);
       console.log("Report saved with ID: ", docRef.id);
+      router.replace('/')
     } catch (error) {
       console.error("Error saving report: ", error);
+    } finally {
+      setReportSending(false)
     }
   };
 
@@ -248,7 +262,7 @@ const ReportWaterBody: React.FC = () => {
             <img src={image} alt="Captured Water Body" className="mt-4 w-full" />
             <div className="mt-4 flex justify-between">
               <Button onClick={handleRecapture}>Recapture Photo</Button>
-              <Button onClick={handleUpload}>Upload Image</Button>
+              <Button onClick={handleUpload}>{uploadingImageLoading ? <Loader2 className='animate-spin' /> : `Upload Image`}</Button>
             </div>
           </>
         ) : (
@@ -329,7 +343,7 @@ const ReportWaterBody: React.FC = () => {
       </div>
 
       <Button onClick={handleSendReport} className="mt-6">
-        Send Report
+        {reportSending ? <Loader2 className='animate-spin'/> : `Send Report`}
       </Button>
     </div>
   );

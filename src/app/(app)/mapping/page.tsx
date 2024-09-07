@@ -1,37 +1,85 @@
 'use client';
 
 import React, { useState, useEffect, useRef, ChangeEvent } from 'react';
-import Map, { NavigationControl, Source, Layer, MapRef } from 'react-map-gl';
+import Map, { NavigationControl, Source, Layer, MapRef, Marker, Popup } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import { IconMapPinFilled } from '@tabler/icons-react';
 
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 
-type PolygonData = {
-    type: string;
-    geometries: Array<{
-        type: string;
-        coordinates: number[][][];
-    }>;
+type FeatureProperties = {
+    name: string;
+    description: {
+        value: string;
+    };
 };
+
+type Feature = {
+    type: string;
+    geometry: {
+        type: string;
+        coordinates: number[] | number[][];
+    };
+    properties: FeatureProperties;
+};
+
+type GeoJSONData = {
+    type: string;
+    features: Feature[];
+};
+
+type MarkerFeatureProperties = {
+    name: string;
+    description: {
+        "@type": string;
+        value: string;
+    };
+    styleUrl: string;
+    "icon-scale": number;
+    "icon-offset": [number, number];
+    "icon-offset-units": [string, string];
+    icon: string;
+};
+
+type MarkerFeature = {
+    type: "Feature";
+    geometry: {
+        type: "Point";
+        coordinates: [number, number, number];
+    };
+    properties: MarkerFeatureProperties;
+};
+
+type MarkerJSONData = {
+    type: "FeatureCollection";
+    features: MarkerFeature[];
+};
+
 
 const Page: React.FC = () => {
     const [mapStyle, setMapStyle] = useState('mapbox://styles/mapbox/satellite-v9');
-    const [polygonData, setPolygonData] = useState<PolygonData | null>(null);
+    const [geoJSONData, setGeoJSONData] = useState<GeoJSONData | null>(null);
+    const [markerJSONData, setMarkerJSONData] = useState<MarkerJSONData | null>(null);
+    const [selectedMarker, setSelectedMarker] = useState<Feature | null>(null);
     const mapRef = useRef<MapRef>(null);
 
     useEffect(() => {
-        // Replace with the actual path to your JSON file
         fetch('/delhi-water-bodies.json')
             .then(response => response.json())
-            .then(data => setPolygonData(data))
-            .catch(error => console.error('Error loading polygon data:', error));
+            .then(data => setGeoJSONData(data))
+            .catch(error => console.error('Error loading GeoJSON data:', error));
+    }, []);
+
+    useEffect(() => {
+        fetch('/full_water_bodies.json')
+            .then(response => response.json())
+            .then(data => setMarkerJSONData(data))
+            .catch(error => console.error('Error loading MarkerJSON data:', error));
     }, []);
 
     const handleStyleChange = (event: ChangeEvent<HTMLSelectElement>) => {
         setMapStyle(event.target.value);
     };
-
-    console.log(polygonData);
 
     return (
         <div className='w-full h-[70vh]'>
@@ -56,27 +104,59 @@ const Page: React.FC = () => {
             >
                 <NavigationControl position="top-right" />
 
-                {polygonData && (
-                    <Source id="fences" type="geojson" data={polygonData}>
+                {geoJSONData && (
+                    <Source type="geojson" data={geoJSONData}>
                         <Layer
-                            id="fences-fill"
+                            id="water-bodies"
                             type="fill"
                             paint={{
-                                'fill-color': '#0008ff', // Use a simple color to make sure polygons are visible
-                                'fill-opacity': 0.6
+                                'fill-color': [
+                                    'case',
+                                    ['boolean', ['get', 'isHighlighted'], false],
+                                    '#FF0000', // Red color for highlighted features
+                                    '#0080ff'  // Blue color for non-highlighted features
+                                ],
+                                'fill-opacity': 0.5,
                             }}
                         />
-
                         <Layer
-                            id="fences-outline"
+                            id="water-bodies-outline"
                             type="line"
                             paint={{
-                                'line-color': '#000000', // Black outline for visibility
-                                'line-width': 2
+                                'line-color': '#000',
+                                'line-width': 2,
                             }}
                         />
-
                     </Source>
+                )}
+
+
+                {markerJSONData && markerJSONData.features.map((feature, index) => (
+                    <Marker
+                        key={index}
+                        longitude={feature.geometry.coordinates[0]}
+                        latitude={feature.geometry.coordinates[1]}
+                        onClick={e => {
+                            e.originalEvent.stopPropagation();
+                            setSelectedMarker(feature);
+                        }}
+                    >
+                        <div className='text-[#F28C8C]'><IconMapPinFilled /></div>
+                    </Marker>
+                ))}
+
+                {selectedMarker && (
+                    <Popup
+                        longitude={Number(selectedMarker.geometry.coordinates[0])}
+                        latitude={Number(selectedMarker.geometry.coordinates[1])}
+                        onClose={() => setSelectedMarker(null)}
+                        closeOnClick={false}
+                    >
+                        <div className='overflow-auto max-h-52'>
+                            <h3>{selectedMarker.properties.name}</h3>
+                            <p dangerouslySetInnerHTML={{ __html: selectedMarker.properties.description.value }}></p>
+                        </div>
+                    </Popup>
                 )}
             </Map>
         </div>
