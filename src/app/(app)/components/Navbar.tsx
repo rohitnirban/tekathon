@@ -28,6 +28,7 @@ const menuItems = [
     { title: 'Mapping', href: '/mapping' },
     { title: 'Report Water Body', href: '/report-water-body' },
     { title: 'Sensor Data', href: '/sensor-data' },
+    { title: 'Upload Recent Image', href: '/upload-recent-image' },
     { title: 'Alerts', href: '/alerts/1' },
 ];
 
@@ -103,7 +104,7 @@ const Navbar = () => {
                 </div>
             </div>
             <nav className={`px-4 md:px-14 bg-[#084c9d] text-white transition-all ${isSticky ? 'fixed top-0 left-0 right-0 z-50 shadow-md' : ''}`}>
-                <ul className={`flex flex-col md:flex-row justify-evenly items-center flex-wrap space-x-4 md:space-x-4 ${isMobileMenuOpen ? 'block' : 'hidden'} md:flex`}>
+                <ul className={`flex flex-col md:flex-row justify-between items-center flex-wrap px-4 space-x-4 md:space-x-4 ${isMobileMenuOpen ? 'block' : 'hidden'} md:flex`}>
                     {menuItems.map((item) => (
                         <li key={item.title} className="relative group hover:bg-[#005fa8] p-2">
                             {item.submenu ? (

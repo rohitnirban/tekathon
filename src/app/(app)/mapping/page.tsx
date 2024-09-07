@@ -93,8 +93,8 @@ const Page: React.FC = () => {
 
             <Map
                 initialViewState={{
-                    longitude: 77.2162867,
-                    latitude: 28.7353911,
+                    longitude: 76.9205261,
+                    latitude: 28.5180842,
                     zoom: 12,
                 }}
                 style={{ width: '100%', height: '100%' }}
@@ -112,9 +112,9 @@ const Page: React.FC = () => {
                             paint={{
                                 'fill-color': [
                                     'case',
-                                    ['boolean', ['get', 'isHighlighted'], false],
-                                    '#FF0000', // Red color for highlighted features
-                                    '#0080ff'  // Blue color for non-highlighted features
+                                    ['has', 'highlighted'],
+                                    'red',
+                                    'blue'
                                 ],
                                 'fill-opacity': 0.5,
                             }}
@@ -129,7 +129,6 @@ const Page: React.FC = () => {
                         />
                     </Source>
                 )}
-
 
                 {markerJSONData && markerJSONData.features.map((feature, index) => (
                     <Marker
