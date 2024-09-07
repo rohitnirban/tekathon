@@ -54,7 +54,7 @@ const RealTimeData: React.FC = () => {
       }
 
       if (currentData) {
-        setData(prevData => [...prevData.slice(-19), {
+        setData(prevData => [...prevData, {
           ...currentData!,
           timestamp: Date.now(),
         }]);
@@ -65,7 +65,6 @@ const RealTimeData: React.FC = () => {
 
     return () => clearInterval(interval);
   }, []);
-
 
   const chartData: ChartData<'line'> = {
     labels: data.map(d => new Date(d.timestamp).toLocaleTimeString()),
