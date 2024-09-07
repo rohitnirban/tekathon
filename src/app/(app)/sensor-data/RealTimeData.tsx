@@ -37,21 +37,35 @@ const RealTimeData: React.FC = () => {
   const [data, setData] = useState<WaterQualityData[]>([]);
 
   useEffect(() => {
-    // Simulating real-time data updates
+    let counter = 0;
+    let currentData: WaterQualityData | null = null;
+
     const interval = setInterval(() => {
-      // In a real application, you would fetch data from an API here
-      const newData: WaterQualityData = {
-        pH: Math.random() * 14,
-        turbidity: Math.random() * 500,
-        BOD: Math.random() * 500,
-        NH4: Math.random() * 100,
-        timestamp: Date.now(),
-      };
-      setData(prevData => [...prevData.slice(-19), newData]);
+      if (counter === 0 || counter >= 8) {
+        // Generate new random data
+        currentData = {
+          pH: 7 + Math.random() * 2,
+          turbidity: 10 + Math.random() * 5,
+          BOD: 10 + Math.random() * 5,
+          NH4: 4 + Math.random() * 2,
+          timestamp: Date.now(),
+        };
+        counter = 0;
+      }
+
+      if (currentData) {
+        setData(prevData => [...prevData.slice(-19), {
+          ...currentData!,
+          timestamp: Date.now(),
+        }]);
+      }
+
+      counter++;
     }, 1000);
 
     return () => clearInterval(interval);
   }, []);
+
 
   const chartData: ChartData<'line'> = {
     labels: data.map(d => new Date(d.timestamp).toLocaleTimeString()),
