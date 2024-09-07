@@ -6,16 +6,16 @@ import React from 'react';
 
 const Page = () => {
     const districts = [
-        { name: 'East', link: '/report/east' },
-        { name: 'West', link: '/report/west' },
-        { name: 'North', link: '/report/north' },
-        { name: 'South', link: '/report/south' },
-        { name: 'Central', link: '/report/central' },
-        { name: 'North-East', link: '/report/north-east' },
-        { name: 'North-West', link: '/report/north-west' },
-        { name: 'South-East', link: '/report/south-east' },
-        { name: 'South-West', link: '/report/south-west' },
-        { name: 'New Delhi', link: '/report/new-delhi' },
+        { name: 'East', link: '/wetland-authority-delhi/east' },
+        { name: 'West', link: '/wetland-authority-delhi/west' },
+        { name: 'North', link: '/wetland-authority-delhi/north' },
+        { name: 'South', link: '/wetland-authority-delhi/south' },
+        { name: 'Central', link: '/wetland-authority-delhi/central' },
+        { name: 'North-East', link: '/wetland-authority-delhi/north-east' },
+        { name: 'North-West', link: '/wetland-authority-delhi/north-west' },
+        { name: 'South-East', link: '/wetland-authority-delhi/south-east' },
+        { name: 'South-West', link: '/wetland-authority-delhi/south-west' },
+        { name: 'New Delhi', link: '/wetland-authority-delhi/new-delhi' },
         // Add more districts with their corresponding links here
     ];
 
