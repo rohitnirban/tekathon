@@ -73,3 +73,27 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+/* Continuous Marquee Animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(150%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Apply the animation */
+.animate-marquee {
+  display: inline-block;
+  white-space: nowrap;
+  animation: marquee 15s linear infinite;
+}
+
+.marquee-wrapper {
+  overflow: hidden; /* Hides overflow to only show the scrolling text */
+  display: flex;
+  align-items: center;
+}
+
